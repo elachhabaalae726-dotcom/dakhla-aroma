@@ -1,182 +1,56 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dakhla Aroma</title>
+const products = [
+  {name:"Parfum Amazing Life", price:25, img:"parfum.jpg"},
+  {name:"Parfum Marsela", price:25, img:"parfum.jpg"},
+  {name:"Eye Pencil", price:15, img:"lipoil.jpg"},
+  {name:"Facial Brush", price:15, img:"brush.jpg"},
+  {name:"Tinted Lip Oil", price:30, img:"lipoil.jpg"},
+  {name:"Hair Brush", price:15, img:"brush.jpg"},
+  {name:"Make-up Brushing 4in1", price:125, img:"brushes.jpg"},
+  {name:"Pedicure Travel Set", price:20, img:"brush.jpg"},
+  {name:"Rosemary Mint", price:25, img:"parfum.jpg"},
+  {name:"Guasha", price:15, img:"guaasha.jpg"},
+  {name:"Liquid Blush", price:25, img:"blush.jpg"},
+  {name:"Liquid Highlighter", price:25, img:"blush.jpg"},
+  {name:"Bronze & Highlight", price:30, img:"blush.jpg"},
+  {name:"Highlighter to Bronzer", price:30, img:"blush.jpg"},
+  {name:"Face & Body Highlighter", price:40, img:"blush.jpg"},
+  {name:"Parfum Deux Chic", price:25, img:"parfum.jpg"},
+  {name:"Hydrogel Lip Mask", price:40, img:"lipoil.jpg"}
+];
 
-  <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      direction:rtl;
-      background:#fff;
-      color:#333;
-      text-align:center;
-    }
-    header{
-      background:#f7c6d0;
-      padding:30px 15px;
-    }
-    header h1{
-      margin:0;
-      color:#b03060;
-    }
-    section{
-      padding:25px 15px;
-    }
-    .products{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-      gap:15px;
-      margin-top:20px;
-    }
-    .product{
-      background:#fff5f8;
-      border:1px solid #f1c1cf;
-      border-radius:12px;
-      padding:15px;
-    }
-    .product h3{
-      color:#b03060;
-      font-size:14px;
-      margin:6px 0;
-    }
-    .qty{
-      font-size:13px;
-    }
-    .price{
-      font-weight:bold;
-      margin:6px 0;
-    }
-    .order-btn{
-      display:inline-block;
-      margin-top:8px;
-      padding:8px 16px;
-      background:#b03060;
-      color:#fff;
-      text-decoration:none;
-      border-radius:20px;
-      font-size:13px;
-    }
-    footer{
-      background:#f7c6d0;
-      padding:15px;
-      font-size:14px;
-    }
-  </style>
-</head>
+let cart = [];
+let total = 0;
 
-<body>
+const productsDiv = document.getElementById("products");
 
-<header>
-  <h1>Dakhla Aroma</h1>
-  <p>Makeup • Beauty • Hair</p>
-</header>
-
-<section>
-  <h2>💄 منتجاتنا 💄</h2>
-
-  <div class="products">
-
+products.forEach((p,i)=>{
+  productsDiv.innerHTML += `
     <div class="product">
-      <h3>Parfum Amazing Life</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">25 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Parfum Amazing Life بثمن 25DH">اطلبي دابا</a>
+      <img src="${p.img}">
+      <h3>${p.name}</h3>
+      <p>${p.price} DH</p>
+      <button onclick="addToCart(${i})">أضف للسلة</button>
     </div>
+  `;
+});
 
-    <div class="product">
-      <h3>Parfum Marsela</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">25 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Parfum Marsela 25DH">اطلبي دابا</a>
-    </div>
+function addToCart(i){
+  cart.push(products[i]);
+  total += products[i].price;
+  document.getElementById("cart-items").innerHTML += `<li>${products[i].name}</li>`;
+  document.getElementById("total").innerText = total;
+}
 
-    <div class="product">
-      <h3>Eye Pencil</h3>
-      <div class="qty">الكمية: 2</div>
-      <div class="price">15 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Eye Pencil 15DH">اطلبي دابا</a>
-    </div>
+function order(){
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let city = document.getElementById("city").value;
 
-    <div class="product">
-      <h3>Facial Brush</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">15 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Facial Brush 15DH">اطلبي دابا</a>
-    </div>
+  if(name=="" || phone=="" || city==""){
+    alert("عافاك عمّر جميع الخانات");
+    return;
+  }
 
-    <div class="product">
-      <h3>Tinted Lip Oil</h3>
-      <div class="qty">الكمية: 4</div>
-      <div class="price">30 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Tinted Lip Oil 30DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Hair Brush</h3>
-      <div class="qty">الكمية: 4</div>
-      <div class="price">15 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Hair Brush 15DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Make-up Brushing 4 in 1</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">25 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Make-up Brushing 4in1 25DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Pedicure Travel Set</h3>
-      <div class="qty">الكمية: 4</div>
-      <div class="price">20 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Pedicure Travel Set 20DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Rosemary Mint</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">25 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Rosemary Mint 25DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Guasha</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">15 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Guasha 15DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Liquid Blush</h3>
-      <div class="qty">الكمية: 2</div>
-      <div class="price">25 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Liquid Blush 25DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Liquid Highlighter</h3>
-      <div class="qty">الكمية: 2</div>
-      <div class="price">25 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Liquid Highlighter 25DH">اطلبي دابا</a>
-    </div>
-
-    <div class="product">
-      <h3>Face & Body Highlighter</h3>
-      <div class="qty">الكمية: 3</div>
-      <div class="price">40 DH</div>
-      <a class="order-btn" href="https://wa.me/212698359300?text=سلام بغيت Face & Body Highlighter 40DH">اطلبي دابا</a>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  © 2026 Dakhla Aroma – الداخلة  
-  <br>📱 0698359300
-</footer>
-
-</body>
-</html>
+  let message = `طلب جديد من Dakhla Aroma%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالمدينة: ${city}%0Aالمجموع: ${total} DH`;
+  window.open(`https://wa.me/212698359300?text=${message}`,"_blank");
+}
