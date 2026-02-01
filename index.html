@@ -69,7 +69,22 @@ function renderProducts(){const box=document.getElementById('products');box.inne
 
 function addToCart(i){cart.push(productsData[i]);updateCart();}
 
-function updateCart(){document.getElementById('cartCount').innerText=cart.length;const items=document.getElementById('cartItems');items.innerHTML='';let total=0;cart.forEach(p=>{total+=p.price;items.innerHTML+=`<li>${p.name[lang]} - ${p.price} DH</li>`;});document.getElementById('total').innerText=total;}
+function updateCart(){
+  document.getElementById('cartCount').innerText=cart.length;
+  const items=document.getElementById('cartItems');
+  items.innerHTML='';
+  let total=0;
+  cart.forEach((p,index)=>{
+    total+=p.price;
+    items.innerHTML+=`<li>${p.name[lang]} - ${p.price} DH <button onclick="removeFromCart(${index})" style="margin-left:6px;background:#ff4d6d;border:none;color:white;border-radius:50%;cursor:pointer">❌</button></li>`;
+  });
+  document.getElementById('total').innerText=total;
+}
+
+function removeFromCart(index){
+  cart.splice(index,1);
+  updateCart();
+} - ${p.price} DH</li>`;});document.getElementById('total').innerText=total;}
 
 function toggleCart(){const box=document.getElementById('cartBox');box.style.display=box.style.display==='block'?'none':'block';}
 
