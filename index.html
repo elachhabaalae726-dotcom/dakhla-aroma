@@ -1,27 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Dakhla Aroma | عطور وميكاب</title>
+
+<style>
+:root{
+  --gold:#c89b63;
+  --light:#f7f4ef;
+  --dark:#3b3b3b;
+}
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(180deg,#ffffff,var(--light));
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#c89b63,#e6caa0);
+  color:white;
+  text-align:center;
+  padding:35px 20px;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+.product{
+  background:linear-gradient(180deg,#ffffff,#faf7f2);
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  cursor:pointer;
+}
+
+.product h4{
+  color:var(--dark);
+  margin:5px 0;
+}
+
+.product p{
+  color:var(--gold);
+  font-weight:bold;
+}
+
+.product button{
+  background:var(--gold);
+  color:white;
+  border:none;
+  padding:6px 14px;
+  border-radius:20px;
+  margin-top:5px;
+}
+
+/* CART & ORDER */
+.cart,.order{
+  background:linear-gradient(180deg,#ffffff,#fdfbf7);
+  margin:20px;
+  padding:15px;
+  border-radius:15px;
+  box-shadow:0 3px 8px rgba(0,0,0,0.06);
+}
+
+.order input{
+  width:100%;
+  padding:8px;
+  margin:6px 0;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+
+.order button{
+  width:100%;
+  background:linear-gradient(135deg,#2ecc71,#27ae60);
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+}
+
+/* WHATSAPP */
+.whatsapp{
+  position:fixed;
+  bottom:15px;
+  left:15px;
+  background:#25D366;
+  color:white;
+  padding:12px 16px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content{
+  background:linear-gradient(180deg,#ffffff,#faf6ef);
+  padding:20px;
+  border-radius:18px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+}
+
+/* FOOTER */
+footer{
+  background:#eee;
+  text-align:center;
+  padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Dakhla Aroma</h1>
+  <p>عطور وميكاب – الدفع عند الاستلام</p>
+</header>
+
+<section class="products" id="products"></section>
+
+<div class="cart">
+  <h3>🛒 سلة المشتريات</h3>
+  <ul id="cart-items"></ul>
+  <b>المجموع: <span id="total">0</span> DH</b>
+</div>
+
+<div class="order">
+  <h3>📦 معلومات التوصيل</h3>
+  <input id="name" placeholder="الاسم الكامل">
+  <input id="phone" placeholder="رقم الهاتف">
+  <input id="city" placeholder="المدينة">
+  <button onclick="order()">إرسال الطلب</button>
+</div>
+
+<a class="whatsapp" href="https://wa.me/212698359300" target="_blank">
+💬 واتساب
+</a>
+
+<footer>
+  <p>📞 خدمة العملاء: 0698359300</p>
+  <p>🚚 توصيل داخل المغرب</p>
+</footer>
+
+<!-- نافذة الوصف -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3 id="m-name"></h3>
+    <p id="m-desc"></p>
+    <b>الثمن: <span id="m-price"></span> DH</b><br><br>
+    <button onclick="closeModal()">إغلاق</button>
+  </div>
+</div>
+
 <script>
 const products=[
- {n:"Parfum Amazing Life",p:25,d:"عطر منعش يدوم طويلاً مناسب للاستعمال اليومي"},
- {n:"Parfum Marsela",p:25,d:"عطر أنيق بلمسة أنثوية جذابة"},
- {n:"Eye Pencil",p:15,d:"قلم عين سهل الاستعمال وثابت"},
- {n:"Facial Brush",p:15,d:"فرشاة تنظيف الوجه بعمق"},
- {n:"Tinted Lip Oil",p:30,d:"زيت شفاه مرطب مع لون طبيعي"},
- {n:"Hair Brush",p:15,d:"فرشاة شعر مريحة للاستعمال اليومي"},
- {n:"Make-up Brushing 4in1",p:125,d:"مجموعة فرش مكياج متكاملة 4 في 1"},
- {n:"Pedicure Travel Set",p:20,d:"عدة باديكير صغيرة مناسبة للسفر"},
- {n:"Rosemary Mint",p:25,d:"منتج منعش برائحة إكليل الجبل والنعناع"},
- {n:"Guasha",p:15,d:"أداة مساج طبيعية لتحفيز الدورة الدموية"},
- {n:"Liquid Blush",p:25,d:"بلاشر سائل بلمسة طبيعية"},
- {n:"Liquid Highlighter",p:25,d:"هايلايتر سائل بلمعة ناعمة"},
- {n:"Bronze & Highlight",p:30,d:"منتوج مزدوج للبرونز والهايلايت"},
- {n:"Highlighter to Bronzer",p:30,d:"تدرج مثالي من الهايلايتر إلى البرونزر"},
- {n:"Face & Body Highlighter",p:40,d:"هايلايتر للوجه والجسم بلمعة فاخرة"},
- {n:"Parfum Deux Chic",p:25,d:"عطر راقي برائحة جذابة"},
- {n:"Hydrogel Lip Mask",p:40,d:"ماسك شفاه مرطب وعلاج للجفاف"}
+ {n:"Parfum Amazing Life",p:25,d:"عطر منعش للاستعمال اليومي"},
+ {n:"Parfum Marsela",p:25,d:"عطر أنيق بلمسة أنثوية"},
+ {n:"Eye Pencil",p:15,d:"قلم عين ثابت وسهل"},
+ {n:"Facial Brush",p:15,d:"فرشاة تنظيف الوجه"},
+ {n:"Tinted Lip Oil",p:30,d:"زيت شفاه مرطب"},
+ {n:"Hair Brush",p:15,d:"فرشاة شعر مريحة"},
+ {n:"Make-up Brushing 4in1",p:125,d:"مجموعة فرش مكياج متكاملة"},
+ {n:"Pedicure Travel Set",p:20,d:"عدة باديكير للسفر"},
+ {n:"Rosemary Mint",p:25,d:"منتج منعش طبيعي"},
+ {n:"Guasha",p:15,d:"أداة مساج للوجه"},
+ {n:"Liquid Blush",p:25,d:"بلاشر سائل طبيعي"},
+ {n:"Liquid Highlighter",p:25,d:"هايلايتر بلمعة ناعمة"},
+ {n:"Bronze & Highlight",p:30,d:"برونزر وهايلايتر"},
+ {n:"Highlighter to Bronzer",p:30,d:"تدرج جميل للوجه"},
+ {n:"Face & Body Highlighter",p:40,d:"لمعة للوجه والجسم"},
+ {n:"Parfum Deux Chic",p:25,d:"عطر راقي وجذاب"},
+ {n:"Hydrogel Lip Mask",p:40,d:"ماسك شفاه مرطب"}
 ];
 
 let total=0;
-let cartItems=document.getElementById("cart-items");
 let productsDiv=document.getElementById("products");
+let cart=document.getElementById("cart-items");
 
 products.forEach((x,i)=>{
  productsDiv.innerHTML+=`
@@ -34,25 +208,28 @@ products.forEach((x,i)=>{
 
 function add(i){
  total+=products[i].p;
- cartItems.innerHTML+=`<li>${products[i].n}</li>`;
+ cart.innerHTML+=`<li>${products[i].n}</li>`;
  document.getElementById("total").innerText=total;
 }
 
 function show(i){
- document.getElementById("modal-title").innerText=products[i].n;
- document.getElementById("modal-desc").innerText=products[i].d;
- document.getElementById("modal-price").innerText=products[i].p;
- document.getElementById("modal").style.display="flex";
+ m-name.innerText=products[i].n;
+ m-desc.innerText=products[i].d;
+ m-price.innerText=products[i].p;
+ modal.style.display="flex";
 }
 
-function closeModal(){
- document.getElementById("modal").style.display="none";
-}
+function closeModal(){ modal.style.display="none"; }
 
 function order(){
- let n=name.value, ph=phone.value, c=city.value;
- if(!n||!ph||!c){alert("عافاك عمّر جميع الخانات");return;}
- let msg=`طلب جديد%0Aالاسم:${n}%0Aالهاتف:${ph}%0Aالمدينة:${c}%0Aالمجموع:${total} DH`;
+ if(!name.value||!phone.value||!city.value){
+   alert("عافاك عمّر جميع الخانات");
+   return;
+ }
+ let msg=`طلب جديد%0Aالاسم:${name.value}%0Aالهاتف:${phone.value}%0Aالمدينة:${city.value}%0Aالمجموع:${total} DH`;
  window.open("https://wa.me/212698359300?text="+msg);
 }
 </script>
+
+</body>
+</html>
