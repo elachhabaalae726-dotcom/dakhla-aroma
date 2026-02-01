@@ -3,21 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Dakhla Aroma | عطور وميكاب</title>
-
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:#f6f6f6;
+  background:linear-gradient(180deg,#ffffff,#f6f0e6);
 }
 
+/* الهيدر */
 header{
   background:linear-gradient(135deg,#c89b63,#e6caa0);
   color:white;
   text-align:center;
   padding:30px 20px;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
 }
 
+/* المنتجات */
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
@@ -26,7 +29,7 @@ header{
 }
 
 .product{
-  background:white;
+  background:linear-gradient(180deg,#ffffff,#faf6ef);
   padding:15px;
   border-radius:15px;
   text-align:center;
@@ -34,85 +37,41 @@ header{
   cursor:pointer;
 }
 
-.product h4{
-  margin:5px 0;
-  color:#333;
-}
-
-.product p{
-  color:#c89b63;
-  font-weight:bold;
-}
-
+.product h4{margin:5px 0;color:#333;}
+.product p{color:#c89b63;font-weight:bold;}
 .product button{
-  background:#c89b63;
-  color:white;
-  border:none;
-  padding:6px 14px;
-  border-radius:20px;
+  background:#c89b63;color:white;border:none;
+  padding:6px 14px;border-radius:20px;margin-top:5px;
   cursor:pointer;
 }
 
+/* السلة والطلب */
 .cart,.order{
-  background:white;
-  margin:20px;
-  padding:15px;
-  border-radius:15px;
+  background:linear-gradient(180deg,#ffffff,#faf6ef);
+  margin:20px;padding:15px;border-radius:15px;
 }
+.order input{width:100%;padding:8px;margin:6px 0;border-radius:8px;border:1px solid #ddd;}
+.order button{width:100%;background:green;color:white;padding:10px;border:none;border-radius:10px;}
 
-.order input{
-  width:100%;
-  padding:8px;
-  margin:6px 0;
-}
+/* واتساب */
+.whatsapp{position:fixed;bottom:15px;left:15px;background:#25D366;color:white;padding:12px 16px;border-radius:50px;text-decoration:none;font-weight:bold;}
 
-.order button{
-  width:100%;
-  background:green;
-  color:white;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-}
-
-.whatsapp{
-  position:fixed;
-  bottom:15px;
-  left:15px;
-  background:#25D366;
-  color:white;
-  padding:12px 16px;
-  border-radius:50px;
-  text-decoration:none;
-}
-
-footer{
-  background:#eee;
-  text-align:center;
-  padding:10px;
-}
+/* الفوتر */
+footer{background:#eee;text-align:center;padding:10px;}
 
 /* نافذة الوصف */
 .modal{
   display:none;
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
+  justify-content:center;align-items:center;
 }
-
 .modal-content{
-  background:white;
-  padding:20px;
-  border-radius:15px;
-  width:90%;
-  max-width:400px;
-  text-align:center;
+  background:linear-gradient(180deg,#ffffff,#faf6ef);
+  padding:20px;border-radius:18px;text-align:center;width:90%;max-width:400px;
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -120,17 +79,14 @@ footer{
   <p>عطور وميكاب – الدفع عند الاستلام</p>
 </header>
 
-<!-- السلع -->
 <section class="products" id="products"></section>
 
-<!-- السلة -->
 <div class="cart">
   <h3>🛒 سلة المشتريات</h3>
   <ul id="cart-items"></ul>
   <b>المجموع: <span id="total">0</span> DH</b>
 </div>
 
-<!-- الطلب -->
 <div class="order">
   <h3>📦 معلومات التوصيل</h3>
   <input id="name" placeholder="الاسم الكامل">
@@ -184,15 +140,11 @@ const productsDiv = document.getElementById("products");
 const cartItems = document.getElementById("cart-items");
 
 products.forEach((p,i)=>{
-  productsDiv.innerHTML += `
-    <div class="product" onclick="showProduct(${i})">
-      <h4>${p.name}</h4>
-      <p>${p.price} DH</p>
-      <button onclick="event.stopPropagation();addToCart(${i})">
-        أضف للسلة
-      </button>
-    </div>
-  `;
+  const div = document.createElement('div');
+  div.className='product';
+  div.onclick = ()=> showProduct(i);
+  div.innerHTML = `<h4>${p.name}</h4><p>${p.price} DH</p><button onclick="event.stopPropagation();addToCart(${i})">أضف للسلة</button>`;
+  productsDiv.appendChild(div);
 });
 
 function addToCart(i){
@@ -208,17 +160,15 @@ function showProduct(i){
   document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal(){
-  document.getElementById("modal").style.display = "none";
-}
+function closeModal(){ document.getElementById("modal").style.display = "none"; }
 
 function order(){
-  if(!name.value || !phone.value || !city.value){
-    alert("عافاك عمّر جميع الخانات");
-    return;
-  }
-  let msg = `طلب جديد%0Aالاسم:${name.value}%0Aالهاتف:${phone.value}%0Aالمدينة:${city.value}%0Aالمجموع:${total} DH`;
-  window.open("https://wa.me/212698359300?text="+msg);
+  const n = document.getElementById("name").value;
+  const ph = document.getElementById("phone").value;
+  const c = document.getElementById("city").value;
+  if(!n || !ph || !c){ alert("عافاك عمّر جميع الخانات"); return; }
+  const msg = `طلب جديد%0Aالاسم:${n}%0Aالهاتف:${ph}%0Aالمدينة:${c}%0Aالمجموع:${total} DH`;
+  window.open(`https://wa.me/212698359300?text=${msg}`);
 }
 </script>
 
