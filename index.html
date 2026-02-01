@@ -1,56 +1,187 @@
-const products = [
-  {name:"Parfum Amazing Life", price:25, img:"parfum.jpg"},
-  {name:"Parfum Marsela", price:25, img:"parfum.jpg"},
-  {name:"Eye Pencil", price:15, img:"lipoil.jpg"},
-  {name:"Facial Brush", price:15, img:"brush.jpg"},
-  {name:"Tinted Lip Oil", price:30, img:"lipoil.jpg"},
-  {name:"Hair Brush", price:15, img:"brush.jpg"},
-  {name:"Make-up Brushing 4in1", price:125, img:"brushes.jpg"},
-  {name:"Pedicure Travel Set", price:20, img:"brush.jpg"},
-  {name:"Rosemary Mint", price:25, img:"parfum.jpg"},
-  {name:"Guasha", price:15, img:"guaasha.jpg"},
-  {name:"Liquid Blush", price:25, img:"blush.jpg"},
-  {name:"Liquid Highlighter", price:25, img:"blush.jpg"},
-  {name:"Bronze & Highlight", price:30, img:"blush.jpg"},
-  {name:"Highlighter to Bronzer", price:30, img:"blush.jpg"},
-  {name:"Face & Body Highlighter", price:40, img:"blush.jpg"},
-  {name:"Parfum Deux Chic", price:25, img:"parfum.jpg"},
-  {name:"Hydrogel Lip Mask", price:40, img:"lipoil.jpg"}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Dakhla Aroma | عطور وميكاب</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(to bottom,#fff,#f3ede6);
+}
+
+header{
+  background:url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9");
+  background-size:cover;
+  background-position:center;
+  color:white;
+  text-align:center;
+  padding:40px 20px;
+}
+
+header h1{
+  background:rgba(0,0,0,0.5);
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:10px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  padding:10px;
+  text-align:center;
+  box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.product button{
+  background:#c89b63;
+  color:white;
+  border:none;
+  padding:7px 10px;
+  margin-top:5px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.cart,.order{
+  background:white;
+  margin:20px;
+  padding:15px;
+  border-radius:15px;
+}
+
+.order input{
+  width:100%;
+  padding:8px;
+  margin:5px 0;
+}
+
+.order button{
+  width:100%;
+  background:green;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+}
+
+.whatsapp{
+  position:fixed;
+  bottom:15px;
+  left:15px;
+  background:#25D366;
+  color:white;
+  padding:12px 15px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+footer{
+  background:#eee;
+  text-align:center;
+  padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Dakhla Aroma</h1>
+  <p>عطور وميكاب بجودة عالية</p>
+</header>
+
+<section class="products" id="products"></section>
+
+<div class="cart">
+  <h2>🛒 سلة المشتريات</h2>
+  <ul id="cart-items"></ul>
+  <p><b>المجموع: <span id="total">0</span> DH</b></p>
+</div>
+
+<div class="order">
+  <h2>📦 معلومات التوصيل</h2>
+  <input id="name" placeholder="الاسم الكامل">
+  <input id="phone" placeholder="رقم الهاتف">
+  <input id="city" placeholder="المدينة">
+  <button onclick="order()">إرسال الطلب (الدفع عند الاستلام)</button>
+</div>
+
+<a class="whatsapp" target="_blank"
+href="https://wa.me/212698359300">
+💬 واتساب
+</a>
+
+<footer>
+  <p>📞 خدمة العملاء: 0698359300</p>
+  <p>🚚 توصيل داخل المغرب – الدفع عند الاستلام</p>
+</footer>
+
+<script>
+const products=[
+ {n:"Parfum Amazing Life",p:25,i:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539"},
+ {n:"Parfum Marsela",p:25,i:"https://images.unsplash.com/photo-1541643600914-78b084683601"},
+ {n:"Eye Pencil",p:15,i:"https://images.unsplash.com/photo-1583241800698-e8ab01830b76"},
+ {n:"Facial Brush",p:15,i:"https://images.unsplash.com/photo-1620917669788-be691b2db72d"},
+ {n:"Tinted Lip Oil",p:30,i:"https://images.unsplash.com/photo-1613080174415-2077f50cbb8c"},
+ {n:"Hair Brush",p:15,i:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"},
+ {n:"Make-up Brushing 4in1",p:125,i:"https://images.unsplash.com/photo-1596462502278-27bfdc403348"},
+ {n:"Pedicure Travel Set",p:20,i:"https://images.unsplash.com/photo-1619451682867-8d8d80c24a66"},
+ {n:"Rosemary Mint",p:25,i:"https://images.unsplash.com/photo-1608571423902-eed4a5ad8108"},
+ {n:"Guasha",p:15,i:"https://images.unsplash.com/photo-1614850523296-d8c1af93d400"},
+ {n:"Liquid Blush",p:25,i:"https://images.unsplash.com/photo-1590156200973-4b9c6f09a52c"},
+ {n:"Liquid Highlighter",p:25,i:"https://images.unsplash.com/photo-1585386959984-a4155224a1ad"},
+ {n:"Bronze & Highlight",p:30,i:"https://images.unsplash.com/photo-1585652757173-57de5e9fab42"},
+ {n:"Highlighter to Bronzer",p:30,i:"https://images.unsplash.com/photo-1585386959984-a4155224a1ad"},
+ {n:"Face & Body Highlighter",p:40,i:"https://images.unsplash.com/photo-1600180758890-6b94519a8ba6"},
+ {n:"Parfum Deux Chic",p:25,i:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539"},
+ {n:"Hydrogel Lip Mask",p:40,i:"https://images.unsplash.com/photo-1613080174415-2077f50cbb8c"}
 ];
 
-let cart = [];
-let total = 0;
+let total=0;
+let cartItems=document.getElementById("cart-items");
+let productsDiv=document.getElementById("products");
 
-const productsDiv = document.getElementById("products");
-
-products.forEach((p,i)=>{
-  productsDiv.innerHTML += `
-    <div class="product">
-      <img src="${p.img}">
-      <h3>${p.name}</h3>
-      <p>${p.price} DH</p>
-      <button onclick="addToCart(${i})">أضف للسلة</button>
-    </div>
-  `;
+products.forEach((x,i)=>{
+ productsDiv.innerHTML+=`
+ <div class="product">
+ <img src="${x.i}">
+ <h4>${x.n}</h4>
+ <p>${x.p} DH</p>
+ <button onclick="add(${i})">أضف للسلة</button>
+ </div>`;
 });
 
-function addToCart(i){
-  cart.push(products[i]);
-  total += products[i].price;
-  document.getElementById("cart-items").innerHTML += `<li>${products[i].name}</li>`;
-  document.getElementById("total").innerText = total;
+function add(i){
+ total+=products[i].p;
+ cartItems.innerHTML+=`<li>${products[i].n}</li>`;
+ document.getElementById("total").innerText=total;
 }
 
 function order(){
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let city = document.getElementById("city").value;
-
-  if(name=="" || phone=="" || city==""){
-    alert("عافاك عمّر جميع الخانات");
-    return;
-  }
-
-  let message = `طلب جديد من Dakhla Aroma%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالمدينة: ${city}%0Aالمجموع: ${total} DH`;
-  window.open(`https://wa.me/212698359300?text=${message}`,"_blank");
+ let n=name.value, ph=phone.value, c=city.value;
+ if(!n||!ph||!c){alert("عافاك عمّر جميع الخانات");return;}
+ let msg=`طلب جديد%0Aالاسم:${n}%0Aالهاتف:${ph}%0Aالمدينة:${c}%0Aالمجموع:${total} DH`;
+ window.open("https://wa.me/212698359300?text="+msg);
 }
+</script>
+
+</body>
+</html>
