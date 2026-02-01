@@ -4,21 +4,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dakhla Aroma</title>
   <style>
-    body {font-family: Arial, sans-serif; margin:0; background:#fafafa}
-    header {background:#111; color:#fff; padding:15px; text-align:center}
-    .lang-btn {margin:5px; padding:6px 10px; cursor:pointer}
-    .container {padding:15px}
-    .products {display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:15px}
-    .product {background:#fff; padding:10px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,.1)}
-    .product h4 {margin:5px 0}
-    .product button {background:#000; color:#fff; border:none; padding:8px; width:100%; border-radius:6px; cursor:pointer}
-    .cart {position:fixed; bottom:20px; right:20px; background:#000; color:#fff; padding:12px 15px; border-radius:50px; cursor:pointer}
-    #cartBox {display:none; position:fixed; bottom:80px; right:20px; background:#fff; width:260px; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,.2)}
-    #cartBox h3 {margin-top:0}
-    .service {position:fixed; bottom:20px; left:20px; background:green; color:#fff; padding:12px 15px; border-radius:50px}
+    body{font-family:Arial,sans-serif;margin:0;background:#fafafa}
+    header{background:#f7c6d0;color:#000;padding:15px;text-align:center}
+    .lang-btn{margin:5px;padding:6px 10px;cursor:pointer;border:none;border-radius:6px}
+    .container{padding:15px}
+    .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
+    .product{background:#fff;padding:10px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+    .product h4{margin:5px 0}
+    .product button{background:#b03060;color:#fff;border:none;padding:8px;width:100%;border-radius:6px;cursor:pointer}
+    .cart{position:fixed;bottom:20px;right:20px;background:#b03060;color:#fff;padding:12px 15px;border-radius:50px;cursor:pointer}
+    #cartBox{display:none;position:fixed;bottom:80px;right:20px;background:#fff;width:280px;padding:15px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+    #cartBox h3{margin-top:0}
+    .service{position:fixed;bottom:20px;left:20px;background:green;color:#fff;padding:12px 15px;border-radius:50px;text-decoration:none}
+    input,select{width:100%;padding:6px;margin-bottom:6px}
   </style>
 </head>
-<body><header>
+<body onload="renderProducts()"><header>
   <h1 id="title">Dakhla Aroma</h1>
   <button class="lang-btn" onclick="setLang('fr')">FR</button>
   <button class="lang-btn" onclick="setLang('ar')">AR</button>
@@ -28,97 +29,50 @@
 </div><div class="cart" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div><div id="cartBox">
   <h3 id="cartTitle">Panier</h3>
   <ul id="cartItems"></ul>
-  <strong>Total: <span id="total">0</span> DH</strong><br><br><label>🏙️ المدينة:</label><br> <input id="city" placeholder="مثلا: الداخلة" style="width:100%;padding:6px;margin-bottom:6px" />
+  <strong>Total: <span id="total">0</span> DH</strong><br><br>  <input id="city" placeholder="المدينة / Ville" />  <select id="delivery">
+    <option value="مع التوصيل">مع التوصيل</option>
+    <option value="بدون توصيل">بدون توصيل</option>
+  </select>  <select id="payment">
+    <option value="نقدا عند الاستلام">نقدا عند الاستلام</option>
+    <option value="الدفع بالبطاقة">الدفع بالبطاقة</option>
+  </select><button onclick="sendWhatsApp()" style="background:green;color:white;border:none;padding:8px;width:100%;border-radius:6px;cursor:pointer">📩 Commander via WhatsApp</button>
 
-<label>🚚 التوصيل:</label><br> <select id="delivery" style="width:100%;padding:6px;margin-bottom:6px">
-
-  <option value="مع التوصيل">مع التوصيل</option>
-  <option value="بدون توصيل">بدون توصيل</option>
-</select><label>💳 طريقة الدفع:</label><br> <select id="payment" style="width:100%;padding:6px;margin-bottom:10px">
-
-  <option value="نقدا عند الاستلام">نقدا عند الاستلام</option>
-  <option value="الدفع بالبطاقة">الدفع بالبطاقة</option>
-</select><button onclick="sendWhatsApp()" style="background:green;color:white;border:none;padding:8px;width:100%;border-radius:6px;cursor:pointer">
-📩 Commander via WhatsApp
-</button>
-</div><a class="service" href="https://wa.me/212698359300" target="_blank">💬 Service client</a>
+</div><a class="service" href="https://wa.me/212698359300" target="_blank">💬 خدمة العملاء</a>
 
 <script>
-  const productsData = [
- {name:{fr:'Parfum Amazing Life', ar:'عطر Amazing Life'}, price:25, stock:3},
- {name:{fr:'Parfum Marsela', ar:'عطر Marsela'}, price:25, stock:3},
- {name:{fr:'Eye Pencil', ar:'قلم عين'}, price:15, stock:2},
- {name:{fr:'Facial Brush', ar:'فرشاة تنظيف الوجه'}, price:15, stock:3},
- {name:{fr:'Tinted Lip Oil', ar:'زيت شفايف ملون'}, price:30, stock:4},
- {name:{fr:'Hair Brush', ar:'فرشاة شعر'}, price:15, stock:4},
- {name:{fr:'Make-up Brushing 4 in 1', ar:'فرش ميكاب 4 في 1'}, price:25, stock:3},
- {name:{fr:'Pedicure Travel Set', ar:'عدة باديكير للسفر'}, price:20, stock:4},
- {name:{fr:'Rosemary Mint', ar:'زيت روزماري بالنعناع'}, price:25, stock:3},
- {name:{fr:'Guasha', ar:'غواشا'}, price:15, stock:3},
- {name:{fr:'Liquid Blush', ar:'بلاشر سائل'}, price:25, stock:2},
- {name:{fr:'Liquid Highlighter', ar:'هايلايتر سائل'}, price:25, stock:2},
- {name:{fr:'Bronze & Highlight', ar:'برونزر وهايلايتر'}, price:30, stock:3},
- {name:{fr:'Highlighter to Bronzer', ar:'هايلايتر إلى برونزر'}, price:30, stock:3},
- {name:{fr:'Face & Body Highlighter', ar:'هايلايتر للوجه والجسم'}, price:40, stock:3},
- {name:{fr:'Parfum Deux Chic', ar:'عطر Deux Chic'}, price:25, stock:1},
- {name:{fr:'Hydrogel Eye & Lip Mask', ar:'ماسك هيدروجيل للعين والشفايف'}, price:40, stock:2}
+const productsData=[
+ {name:{fr:'Parfum Amazing Life',ar:'عطر Amazing Life'},price:25},
+ {name:{fr:'Parfum Marsela',ar:'عطر Marsela'},price:25},
+ {name:{fr:'Eye Pencil',ar:'قلم عين'},price:15},
+ {name:{fr:'Facial Brush',ar:'فرشاة تنظيف الوجه'},price:15},
+ {name:{fr:'Tinted Lip Oil',ar:'زيت شفايف ملون'},price:30},
+ {name:{fr:'Hair Brush',ar:'فرشاة شعر'},price:15},
+ {name:{fr:'Make-up Brushing 4 in 1',ar:'فرش ميكاب 4 في 1'},price:25},
+ {name:{fr:'Pedicure Travel Set',ar:'عدة باديكير للسفر'},price:20},
+ {name:{fr:'Rosemary Mint',ar:'زيت روزماري بالنعناع'},price:25},
+ {name:{fr:'Guasha',ar:'غواشا'},price:15},
+ {name:{fr:'Liquid Blush',ar:'بلاشر سائل'},price:25},
+ {name:{fr:'Liquid Highlighter',ar:'هايلايتر سائل'},price:25},
+ {name:{fr:'Bronze & Highlight',ar:'برونزر وهايلايتر'},price:30},
+ {name:{fr:'Highlighter to Bronzer',ar:'هايلايتر إلى برونزر'},price:30},
+ {name:{fr:'Face & Body Highlighter',ar:'هايلايتر للوجه والجسم'},price:40},
+ {name:{fr:'Parfum Deux Chic',ar:'عطر Deux Chic'},price:25},
+ {name:{fr:'Hydrogel Eye & Lip Mask',ar:'ماسك هيدروجيل للعين والشفايف'},price:40}
 ];
 
-  let lang = 'fr';
-  let cart = [];
+let lang='fr';
+let cart=[];
 
-  function setLang(l){ lang=l; renderProducts(); document.getElementById('title').innerText = l==='fr'?'Dakhla Aroma':'داخلة أروما'; document.getElementById('prodTitle').innerText = l==='fr'?'Produits':'المنتجات'; document.getElementById('cartTitle').innerText = l==='fr'?'Panier':'السلة'; }
+function setLang(l){lang=l;renderProducts();document.getElementById('title').innerText=l==='fr'?'Dakhla Aroma':'داخلة أروما';document.getElementById('prodTitle').innerText=l==='fr'?'Produits':'المنتجات';document.getElementById('cartTitle').innerText=l==='fr'?'Panier':'السلة';}
 
-  function renderProducts(){
-    const box = document.getElementById('products'); box.innerHTML='';
-    productsData.forEach((p,i)=>{
-      box.innerHTML += `<div class='product'>
-        <h4>${p.name[lang]}</h4>
-        <p>${p.price} DH</p>
-        <button onclick='addToCart(${i})'>${lang==='fr'?'Ajouter':'أضف للسلة'}</button>
-      </div>`;
-    });
-  }
+function renderProducts(){const box=document.getElementById('products');box.innerHTML='';productsData.forEach((p,i)=>{box.innerHTML+=`<div class='product'><h4>${p.name[lang]}</h4><p>${p.price} DH</p><button onclick='addToCart(${i})'>${lang==='fr'?'Ajouter':'أضف للسلة'}</button></div>`;});}
 
-  function addToCart(i){ cart.push(productsData[i]); updateCart(); }
+function addToCart(i){cart.push(productsData[i]);updateCart();}
 
-  function updateCart(){
-    document.getElementById('cartCount').innerText = cart.length;
-    const items = document.getElementById('cartItems'); items.innerHTML=''; let total=0;
-    cart.forEach(p=>{ total+=p.price; items.innerHTML+=`<li>${p.name[lang]} - ${p.price}DH</li>`; });
-    document.getElementById('total').innerText = total;
-  }
+function updateCart(){document.getElementById('cartCount').innerText=cart.length;const items=document.getElementById('cartItems');items.innerHTML='';let total=0;cart.forEach(p=>{total+=p.price;items.innerHTML+=`<li>${p.name[lang]} - ${p.price} DH</li>`;});document.getElementById('total').innerText=total;}
 
-  function sendWhatsApp(){
-  if(cart.length===0){ alert(lang==='fr'?'Panier vide':'السلة فارغة'); return; }
+function toggleCart(){const box=document.getElementById('cartBox');box.style.display=box.style.display==='block'?'none':'block';}
 
-  const city = document.getElementById('city').value || (lang==='fr'?'Non précisée':'غير محددة');
-  const delivery = document.getElementById('delivery').value;
-  const payment = document.getElementById('payment').value;
-
-  let message = lang==='fr'
-    ?'Bonjour, je souhaite commander:%0A'
-    :'سلام، بغيت نطلب:%0A';
-
-  let total = 0;
-  cart.forEach(p=>{ message += `- ${p.name[lang]} : ${p.price} DH%0A`; total += p.price; });
-
-  message += `%0A${lang==='fr'?'Ville':'المدينة'}: ${city}%0A`;
-  message += `${lang==='fr'?'Livraison':'التوصيل'}: ${delivery}%0A`;
-  message += `${lang==='fr'?'Paiement':'طريقة الدفع'}: ${payment}%0A`;
-  message += `%0A${lang==='fr'?'Total':'المجموع'}: ${total} DH`;
-
-  window.open('https://wa.me/212698359300?text='+message,'_blank');
-}
-  let message = lang==='fr'?'Bonjour, je souhaite commander:%0A':'سلام، بغيت نطلب:%0A';
-  let total = 0;
-  cart.forEach(p=>{ message += `- ${p.name[lang]} : ${p.price} DH%0A`; total += p.price; });
-  message += (lang==='fr'?'Total: ':'المجموع: ') + total + ' DH';
-  window.open('https://wa.me/212698359300?text='+message,'_blank');
-}
-
-function toggleCart(){ document.getElementById('cartBox').style.display = document.getElementById('cartBox').style.display==='block'?'none':'block'; }
-
-  renderProducts();
+function sendWhatsApp(){if(cart.length===0){alert(lang==='fr'?'Panier vide':'السلة فارغة');return;}const city=document.getElementById('city').value||'---';const delivery=document.getElementById('delivery').value;const payment=document.getElementById('payment').value;let message=lang==='fr'?'Bonjour, je souhaite commander:%0A':'سلام، بغيت نطلب:%0A';let total=0;cart.forEach(p=>{message+=`- ${p.name[lang]} : ${p.price} DH%0A`;total+=p.price;});message+=`%0A${lang==='fr'?'Ville':'المدينة'}: ${city}%0A${lang==='fr'?'Livraison':'التوصيل'}: ${delivery}%0A${lang==='fr'?'Paiement':'طريقة الدفع'}: ${payment}%0A%0A${lang==='fr'?'Total':'المجموع'}: ${total} DH`;window.open('https://wa.me/212698359300?text='+message,'_blank');}
 </script></body>
 </html>
