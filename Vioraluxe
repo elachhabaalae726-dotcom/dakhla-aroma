@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VioraLuxe — Parfums d'Exception | Dakhla, Maroc</title>
+<meta name="description" content="VioraLuxe – Parfums d'exception inspirés des grandes maisons. Livraison à Dakhla. À partir de 60 DH.">
+<meta name="theme-color" content="#FFF0F3">
+<style>
+/* ===== VIORALUXE — ROSE GOLD LUXE / OFFLINE BUILD ===== */
+:root {
+  --bg: #FFF0F3;
+  --bg-2: #fce5eb;
+  --card: #FFFCFA;
+  --card-soft: #fff6f3;
+  --ink: #3A2328;
+  --ink-soft: #6e4a52;
+  --ink-faint: #9d6d78;
+  --gold: #C98A5A;
+  --gold-dark: #a96d3e;
+  --gold-soft: #e9c6a8;
+  --rose: #f2d4d9;
+  --rose-deep: #e8b9c2;
+  --dark-pack: #2A1C1E;
+  --dark-pack-2: #3a272a;
+  --border: #ebd4d8;
+  --shadow-sm: 0 2px 12px rgba(58, 35, 40, 0.06);
+  --shadow-md: 0 8px 32px rgba(58, 35, 40, 0.09);
+  --shadow-lg: 0 24px 60px rgba(58, 35, 40, 0.11);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --max: 1140px;
+  --serif: "Georgia", "Times New Roman", "Iowan Old Style", "Palatino", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Top bar */
+.topbar {
+  background: #f7dee3;
+  border-bottom: 1px solid #efd0d7;
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+  padding: 9px 16px;
+  font-weight: 600;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(255, 240, 243, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(196, 138, 90, 0.18);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 74px;
+  gap: 24px;
+}
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.brand-name {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: .13em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.brand-sub {
+  font-size: 9.5px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  padding-left: 2px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+  transition: color .18s ease;
+  font-weight: 500;
+}
+.nav-links a:hover { color: var(--gold-dark); }
+.header-cta {
+  background: var(--gold);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  padding: 11px 20px;
+  border-radius: 999px;
+  transition: background .18s, transform .15s;
+  white-space: nowrap;
+}
+.header-cta:hover { background: var(--gold-dark); transform: translateY(-1px); }
+.hamburger {
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+.hamburger span, .hamburger span::before, .hamburger span::after {
+  display: block;
+  width: 18px; height: 1.5px; background: var(--ink);
+  position: relative;
+  border-radius: 2px;
+  transition: .2s;
+}
+.hamburger span::before, .hamburger span::after { content: ""; position: absolute; left: 0; }
+.hamburger span::before { top: -6px; }
+.hamburger span::after { top: 6px; }
+
+/* Mobile menu */
+.mobile-nav {
+  display: none;
+  border-top: 1px solid var(--border);
+  background: rgba(255, 240, 243, 0.98);
+  padding: 10px 24px 18px;
+}
+.mobile-nav.open { display: block; }
+.mobile-nav a {
+  display: block;
+  padding: 13px 4px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  border-bottom: 1px solid #f0d9de;
+}
+.mobile-nav a:last-child { border-bottom: 0; }
+
+/* Hero */
+.hero {
+  padding: 88px 0 70px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -120px;
+  top: -80px;
+  width: 520px; height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(233, 198, 168, 0.28), transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap: 56px;
+  align-items: center;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(42px, 5.8vw, 82px);
+  line-height: .96;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin-bottom: 22px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-lead {
+  color: var(--ink-soft);
+  font-size: 17.5px;
+  line-height: 1.68;
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+.hero-actions {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  margin-bottom: 28px;
+}
+.btn-primary {
+  background: var(--gold);
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  transition: background .18s, transform .15s, box-shadow .18s;
+  display: inline-flex; align-items: center; gap: 9px;
+  box-shadow: 0 10px 24px rgba(201,138,90,.28);
+}
+.btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+.btn-ghost {
+  border: 1.5px solid var(--rose-deep);
+  color: var(--ink);
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.55);
+  transition: border-color .18s, background .18s;
+}
+.btn-ghost:hover { border-color: var(--gold-soft); background: #fff; }
+.trust-row {
+  display: flex; flex-wrap: wrap; gap: 22px;
+  font-size: 12.8px;
+  color: var(--ink-faint);
+}
+.trust-row strong {
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.trust-row span { display: inline-flex; align-items: center; gap: 7px; }
+.dot-gold { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display:inline-block; }
+
+/* Hero visual card */
+.hero-visual {
+  position: relative;
+  min-height: 420px;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-card {
+  background: linear-gradient(160deg, #fffcfb 0%, #fff3ef 100%);
+  border: 1px solid #eed6cd;
+  border-radius: 30px;
+  padding: 38px 34px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+.hero-card-label {
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.hero-card h3 {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.22;
+  margin-bottom: 10px;
+}
+.hero-card p {
+  color: var(--ink-soft);
+  font-size: 14.2px;
+  line-height: 1.65;
+}
+.hero-stats {
+  display: flex;
+  gap: 28px;
+  border-top: 1px solid #ebd5cc;
+  margin-top: 20px;
+  padding-top: 18px;
+}
+.hero-stat strong {
+  font-family: var(--serif);
+  font-size: 22px;
+  display: block;
+  font-weight: 400;
+}
+.hero-stat span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-faint);
+}
+
+/* Section base */
+.section {
+  padding: 78px 0;
+}
+.section-alt {
+  background: #fbe7ec;
+  border-top: 1px solid #f1d2d9;
+  border-bottom: 1px solid #f1d2d9;
+}
+.section-head {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 48px;
+}
+.section-kicker {
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.2vw, 52px);
+  font-weight: 400;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+.section-head p {
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Collection filters */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.filter-btn {
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1.3px solid var(--border);
+  background: var(--card);
+  color: var(--ink-soft);
+  transition: all .16s;
+  letter-spacing: .01em;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--ink);
+  color: #fff6f2;
+  border-color: var(--ink);
+}
+
+/* Fragrance grid */
+.fragrance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.f-card {
+  background: var(--card);
+  border: 1px solid #edd8d8;
+  border-radius: 28px;
+  padding: 28px 26px 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.f-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: #e3c0c7;
+}
+.f-brand {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.f-name {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.18;
+  font-weight: 400;
+  margin-bottom: auto;
+  padding-bottom: 22px;
+}
+.f-sizes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+.size-btn {
+  display: block;
+  text-align: center;
+  background: #fbf1ee;
+  border: 1.3px solid #e8cec5;
+  border-radius: 12px;
+  padding: 11px 8px;
+  font-size: 13.2px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: background .15s, border-color .15s, transform .12s;
+  line-height: 1.35;
+}
+.size-btn small { display:block; font-weight: 600; color: var(--ink-soft); font-size: 12px; }
+.size-btn:hover {
+  background: #f7e3da;
+  border-color: var(--gold-soft);
+  transform: translateY(-1px);
+}
+.size-btn.strong {
+  background: #f9e7dd;
+  border-color: #e2b999;
+}
+
+/* Note du parfumeur */
+.note-block {
+  background: var(--card);
+  border: 1px solid #edd6cf;
+  border-radius: 26px;
+  padding: 34px 32px;
+  max-width: 820px;
+  margin: 46px auto 0;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.note-block p {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  font-style: italic;
+}
+.note-block .note-sig {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 800;
+  font-style: normal;
+  font-family: var(--sans);
+}
+
+/* Packs */
+.packs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+.pack-card {
+  background: var(--card);
+  border: 1px solid #edd6cf;
+  border-radius: 26px;
+  padding: 34px 30px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+.pack-card.dark {
+  background: linear-gradient(175deg, #2d1f22 0%, #23171a 100%);
+  color: #f6e9e4;
+  border-color: #3a282c;
+  position: relative;
+  box-shadow: 0 18px 50px rgba(34, 20, 23, 0.28);
+}
+.pack-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.pack-card.dark .pack-label { color: #e0b38a; }
+.pack-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.pack-desc {
+  color: var(--ink-soft);
+  font-size: 14.6px;
+  line-height: 1.6;
+}
+.pack-card.dark .pack-desc { color: #d5c0b9; }
+.pack-price {
+  font-family: var(--serif);
+  font-size: 44px;
+  margin: 22px 0 18px;
+  font-weight: 400;
+}
+.pack-price span { font-size: 18px; color: var(--ink-faint); font-family: var(--sans); font-weight: 600; }
+.pack-card.dark .pack-price span { color: #b99886; }
+.pack-features {
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+  line-height: 1.9;
+}
+.pack-card.dark .pack-features { color: #d2bbb2; }
+.pack-features li::before {
+  content: "— ";
+  color: var(--gold);
+}
+.pack-card.dark .pack-features li::before { color: #d39a69; }
+.pack-cta {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+  border-radius: 999px;
+  padding: 13px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  display: block;
+  transition: transform .15s, background .15s;
+}
+.pack-cta.light {
+  background: #f5e4d9;
+  color: var(--ink);
+}
+.pack-cta.light:hover { background: #f0d4c2; }
+.pack-cta.dark-btn {
+  background: #f4e7df;
+  color: #2a1d20;
+}
+.pack-cta.gold {
+  background: var(--gold);
+  color: #fff;
+}
+.pack-cta.gold:hover, .pack-cta.dark-btn:hover { transform: translateY(-1px); filter: brightness(1.03); }
+.badge-pop {
+  position: absolute;
+  top: 18px; right: 18px;
+  background: #e9b289;
+  color: #2d1a14;
+  font-size: 10.2px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  border-radius: 999px;
+}
+
+/* Savoir-faire */
+.savoir-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 16px;
+}
+.savoir-card {
+  background: var(--card);
+  border: 1px solid #edd6cf;
+  border-radius: 22px;
+  padding: 28px 26px;
+  box-shadow: var(--shadow-sm);
+}
+.savoir-card h4 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.savoir-card p { color: var(--ink-soft); font-size: 14.7px; line-height: 1.7; }
+.savoir-icon {
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: #f9e8df;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  color: var(--gold-dark);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* Contact / Footer */
+.contact-section {
+  background: #fbe7ec;
+  border-top: 1px solid #efcfd6;
+  padding: 72px 0 34px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 36px;
+  align-items: start;
+}
+.contact-copy h3 {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.12;
+  margin-bottom: 12px;
+}
+.contact-copy p { color: var(--ink-soft); max-width: 440px; font-size: 15.5px; line-height: 1.7; }
+.contact-actions {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+}
+.contact-card {
+  background: var(--card);
+  border: 1px solid #ecd2d4;
+  border-radius: 20px;
+  padding: 24px 24px;
+  box-shadow: var(--shadow-sm);
+}
+.contact-card h5 {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-weight: 800; margin-bottom: 10px;
+}
+.contact-list { list-style: none; font-size: 15px; line-height: 2.05; color: var(--ink-soft); }
+.contact-list a { color: var(--ink); font-weight: 600; text-decoration: underline; text-decoration-color: #e5c0a8; text-underline-offset: 3px; }
+.contact-list a:hover { color: var(--gold-dark); }
+
+.footer-bottom {
+  border-top: 1px solid #f0ced5;
+  margin-top: 46px;
+  padding-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--ink-faint);
+  font-size: 13px;
+}
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.footer-links a { color: var(--ink-soft); }
+.footer-links a:hover { color: var(--gold-dark); }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%) translateY(18px);
+  background: #2b1e21;
+  color: #f5e6df;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px 18px;
+  border-radius: 999px;
+  box-shadow: 0 12px 34px rgba(0,0,0,.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: .22s ease;
+  z-index: 200;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .fragrance-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid, .contact-grid, .packs-grid, .savoir-grid { grid-template-columns: 1fr; }
+  .hero { padding-top: 54px; }
+  .hero-visual { min-height: auto; }
+}
+
+@media (max-width: 720px) {
+  .nav-links, .header-cta { display: none; }
+  .hamburger { display: flex; }
+  .container { padding: 0 18px; }
+  .hero h1 { font-size: 44px; }
+  .hero-lead { font-size: 16px; }
+  .section { padding: 60px 0; }
+  .fragrance-grid { grid-template-columns: 1fr; gap: 16px; }
+  .f-card { min-height: auto; border-radius: 22px; padding: 24px 20px; }
+  .f-name { font-size: 24px; }
+  .pack-title { font-size: 30px; }
+  .pack-price { font-size: 38px; }
+  .contact-copy h3 { font-size: 34px; }
+  .footer-bottom { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 390px) {
+  .brand-name { font-size: 24px; }
+  .f-sizes { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-ghost { text-align: center; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">Livraison express à Dakhla • Paiement à la livraison • Échantillons offerts dès 2 parfums</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="#accueil" class="brand-lockup" aria-label="VioraLuxe Accueil">
+      <span class="brand-name">VIORALUXE</span>
+      <span class="brand-sub">Dakhla • Maroc</span>
+    </a>
+
+    <nav aria-label="Navigation principale">
+      <ul class="nav-links">
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#packs">Packs Cadeaux</a></li>
+        <li><a href="#savoir">Savoir-faire</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <a class="header-cta" href="https://wa.me/212728339347?text=Bonjour%20VioraLuxe%2C%20je%20souhaite%20commander." target="_blank" rel="noopener">Commander sur WhatsApp</a>
+
+    <button class="hamburger" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#collection">Collection</a>
+    <a href="#packs">Packs Cadeaux</a>
+    <a href="#savoir">Savoir-faire</a>
+    <a href="#contact">Contact</a>
+    <a href="https://wa.me/212728339347?text=Bonjour%20VioraLuxe%2C%20je%20souhaite%20commander." target="_blank" rel="noopener"><strong>Commander sur WhatsApp →</strong></a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Parfums d'Exception</div>
+        <h1>L'élégance<br>à la<br><em>Marocaine.</em></h1>
+        <p class="hero-lead">VioraLuxe réunit les plus belles inspirations olfactives du moment, dans des flacons raffinés et une tenue remarquable. Une collection pensée pour Dakhla.</p>
+        <div class="hero-actions">
+          <a href="#collection" class="btn-primary">Découvrir la collection</a>
+          <a href="https://wa.me/212728339347?text=Bonjour%20VioraLuxe%2C%20je%20veux%20des%20conseils%20pour%20choisir%20mon%20parfum." target="_blank" rel="noopener" class="btn-ghost">Conseil personnalisé</a>
+        </div>
+        <div class="trust-row">
+          <span><i class="dot-gold"></i> <strong>Livraison Dakhla 24h</strong></span>
+          <span><i class="dot-gold"></i> <strong>Paiement à la livraison</strong></span>
+          <span><i class="dot-gold"></i> <strong>Échanges faciles</strong></span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-label">Collection Signature</div>
+          <h3>22 inspirations iconiques, sélectionnées avec soin.</h3>
+          <p>Du musc propre et lumineux aux vanilles gourmandes, en passant par les floraux poudrés. À partir de 60 DH seulement.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>22</strong><span>Parfums</span></div>
+            <div class="hero-stat"><strong>60 DH</strong><span>À l'unité</span></div>
+            <div class="hero-stat"><strong>24h</strong><span>Dakhla</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECTION -->
+  <section class="section" id="collection">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">La Collection</div>
+        <h2>Parfums d'exception</h2>
+        <p>Chaque fragrance est présentée en 30 ml et 50 ml, avec une excellente tenue et une diffusion élégante, du matin au soir.</p>
+      </div>
+
+      <div class="filter-row" id="filterRow" role="tablist" aria-label="Filtrer la collection">
+        <button class="filter-btn active" data-filter="all">Tout voir</button>
+        <button class="filter-btn" data-filter="floral">Floral</button>
+        <button class="filter-btn" data-filter="gourmand">Gourmand / Vanillé</button>
+        <button class="filter-btn" data-filter="frais">Frais & Lumineux</button>
+        <button class="filter-btn" data-filter="soir">Soir & Intense</button>
+      </div>
+
+      <div class="fragrance-grid" id="fragranceGrid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <div class="note-block">
+        <p>“Une collection pensée pour habiller chaque moment de votre journée, avec une tenue fidèle et un sillage délicat.”</p>
+        <div class="note-sig">— Note du parfumeur VioraLuxe</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKS -->
+  <section class="section section-alt" id="packs">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">Offres</div>
+        <h2>Packs Cadeaux VioraLuxe</h2>
+        <p>Composez votre coffret. Idéal pour offrir, ou pour découvrir plusieurs univers.</p>
+      </div>
+
+      <div class="packs-grid">
+        <!-- A L'UNITE -->
+        <div class="pack-card">
+          <div class="pack-label">À l'unité</div>
+          <div class="pack-title">A L'UNITE</div>
+          <p class="pack-desc">Choisissez votre parfum signature, 30 ml ou 50 ml.</p>
+          <div class="pack-price">60 <span>DH</span></div>
+          <ul class="pack-features">
+            <li>30 ml – 60 DH</li>
+            <li>50 ml – 99 DH</li>
+            <li>Livraison Dakhla</li>
+          </ul>
+          <a href="https://wa.me/212728339347?text=Bonjour%20VioraLuxe%2C%20je%20souhaite%20commander%20%C3%A0%20l'unit%C3%A9." target="_blank" rel="noopener" class="pack-cta light">Commander à l'unité</a>
+        </div>
+
+        <!-- PACK ELEGANCE -->
+        <div class="pack-card dark">
+          <div class="pack-label">Pack Cadeau</div>
+          <div class="pack-title">PACK<br>ELEGANCE</div>
+          <p class="pack-desc">4 Parfums 30ml + Cadeau. Parfait pour découvrir.</p>
+          <div class="pack-price" style="color:#f2d9c9">199 <span>DH</span></div>
+          <ul class="pack-features">
+            <li>4 parfums au choix – 30 ml</li>
+            <li>Pochette cadeau offerte</li>
+            <li>Échantillon surprise</li>
+          </ul>
+          <a href="https://wa.me/212728339347?text=Bonjour%20VioraLuxe%2C%20je%20veux%20le%20PACK%20ELEGANCE%20%C3%A0%20199%20DH%20(4x30ml)." target="_blank" rel="noopener" class="pack-cta dark-btn">Commander Pack Élégance</a>
+        </div>
+
+        <!-- PACK LUXE -->
+        <div class="pack-card">
+          <div class="badge-pop">Le plus demandé</div>
+          <div class="pack-label" style="margin-top:18px">Pack Cadeau</div>
+          <div class="pack-title">PACK<br>LUXE</div>
+          <p class="pack-desc">4 Parfums 50ml + Cadeau. Le coffret best-seller.</p>
+          <div class="pack-price">350 <span>DH</span></div>
+          <ul class="pack-features">
+            <li>4 parfums au choix – 50 ml</li>
+            <li>Coffret cadeau VioraLuxe</li>
+            <li>Échantillon surprise offert</li>
+          </ul>
+          <a href="https://wa.me/212728339347?text=Bonjour%20VioraLuxe%2C%20je%20veux%20le%20PACK%20LUXE%20%C3%A0%20350%20DH%20(4x50ml).%20C'est%20le%20plus%20demand%C3%A9%20%21" target="_blank" rel="noopener" class="pack-cta gold">Commander Pack Luxe</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVOIR-FAIRE -->
+  <section class="section" id="savoir">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">VioraLuxe</div>
+        <h2>Notre savoir-faire</h2>
+        <p>Une sélection exigeante, une tenue maîtrisée, un service attentionné à Dakhla.</p>
+      </div>
+
+      <div class="savoir-grid">
+        <div class="savoir-card">
+          <div class="savoir-icon">✦</div>
+          <h4>Tenue longue durée</h4>
+          <p>Concentrations équilibrées pour une diffusion élégante qui tient toute la journée, même sous le climat de Dakhla.</p>
+        </div>
+        <div class="savoir-card">
+          <div class="savoir-icon">❤</div>
+          <h4>Sélection pointue</h4>
+          <p>22 inspirations iconiques des grandes maisons, choisies pour leur modernité et leur caractère.</p>
+        </div>
+        <div class="savoir-card">
+          <div class="savoir-icon">◫</div>
+          <h4>Paiement à la livraison</h4>
+          <p>Réglez en toute confiance à la réception. Livraison express à Dakhla, emballage cadeau soigné.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <h3>Commandez en 30 secondes</h3>
+          <p>Dites-nous votre parfum et votre format sur WhatsApp, on s’occupe du reste. Réponse rapide, 7j/7.</p>
+          <div class="contact-actions">
+            <a class="btn-primary" href="https://wa.me/212728339347?text=Salam%20VioraLuxe%20%F0%9F%8C%B8%20Je%20souhaite%20commander." target="_blank" rel="noopener">WhatsApp : +212 728-339347</a>
+            <a class="btn-ghost" href="#collection">Voir la collection</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h5>Contact Direct</h5>
+          <ul class="contact-list">
+            <li>WhatsApp : <a href="https://wa.me/212728339347" target="_blank" rel="noopener">+212 728-339347</a></li>
+            <li>Instagram : <a href="https://instagram.com/vioraluxe3" target="_blank" rel="noopener">@vioraluxe3</a></li>
+            <li>Email : <a href="mailto:vioraluxe3@gmail.com">vioraluxe3@gmail.com</a></li>
+            <li>Dakhla, Maroc — Livraison locale</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2024 VioraLuxe — Parfums d'exception, Dakhla Maroc. Tous droits réservés.</div>
+        <div class="footer-links">
+          <a href="#contact">Contact</a>
+          <a href="https://wa.me/212728339347" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://instagram.com/vioraluxe3" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Lien WhatsApp copié</div>
+
+<script>
+/* ---- VIORALUXE — OFFLINE SHOP SCRIPT ---- */
+const PERFUMES = [
+  { brand: "PRADA", name: "Prada Paradoxe", cat: "floral" },
+  { brand: "BURBERRY", name: "Burberry Her", cat: "gourmand" },
+  { brand: "NARCISO RODRIGUEZ", name: "Pure Musk", cat: "floral" },
+  { brand: "GIVENCHY", name: "L'interdit Rouge", cat: "soir" },
+  { brand: "DOLCE&GABBANA", name: "The One Femme", cat: "soir" },
+  { brand: "CHANEL", name: "Coco Mademoiselle", cat: "soir" },
+  { brand: "KAYALI", name: "Vanille 21", cat: "gourmand" },
+  { brand: "KAYALI", name: "Marshmallow", cat: "gourmand" },
+  { brand: "DOLCE&GABBANA", name: "Light Blue", cat: "frais" },
+  { brand: "DIOR", name: "L'imperatrice", cat: "frais" },
+  { brand: "ESCADA", name: "Taj Sunset", cat: "frais" },
+  { brand: "CHANEL", name: "Chance", cat: "floral" },
+  { brand: "LATTAFA", name: "Yara", cat: "gourmand" },
+  { brand: "LANCOME", name: "La Vie Est Belle", cat: "gourmand" },
+  { brand: "CAROLINA HERRERA", name: "Good Girl", cat: "soir" },
+  { brand: "GIORGIO ARMANI", name: "My Way", cat: "floral" },
+  { brand: "YVES SAINT LAURENT", name: "Libre", cat: "soir" },
+  { brand: "JEAN PAUL GAULTIER", name: "Scandal", cat: "gourmand" },
+  { brand: "YVES SAINT LAURENT", name: "Black Opium", cat: "soir" },
+  { brand: "GIORGIO ARMANI", name: "Si", cat: "floral" },
+  { brand: "PARFUMS DE MARLY", name: "Delina", cat: "floral" },
+  { brand: "", name: "Eclaire", cat: "frais" }
+];
+
+const WA_BASE = "https://wa.me/212728339347?text=";
+
+function waLink(brand, name, size, price) {
+  const brandPart = brand ? brand + " - " : "";
+  const msg = `Bonjour VioraLuxe, je souhaite commander ${brandPart}${name} - ${size} - ${price} DH.`;
+  return WA_BASE + encodeURIComponent(msg);
+}
+
+const grid = document.getElementById('fragranceGrid');
+
+function renderPerfumes(filter = 'all') {
+  const items = filter === 'all' ? PERFUMES : PERFUMES.filter(p => p.cat === filter);
+  grid.innerHTML = items.map(p => `
+    <article class="f-card" data-cat="${p.cat}">
+      <div class="f-brand">${p.brand || "VIORALUXE"}</div>
+      <h3 class="f-name">${p.name}</h3>
+      <div class="f-sizes">
+        <a class="size-btn" href="${waLink(p.brand, p.name, "30 ml", "60")}" target="_blank" rel="noopener">
+          30 ml<br><small>60 DH</small>
+        </a>
+        <a class="size-btn strong" href="${waLink(p.brand, p.name, "50 ml", "99")}" target="_blank" rel="noopener">
+          50 ml<br><small>99 DH</small>
+        </a>
+      </div>
+    </article>
+  `).join('');
+}
+renderPerfumes();
+
+// Filters
+document.getElementById('filterRow').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPerfumes(btn.dataset.filter);
+});
+
+// Mobile menu
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileNav.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+}));
+
+// Close mobile nav on resize up
+window.addEventListener('resize', () => {
+  if(window.innerWidth > 720 && mobileNav.classList.contains('open')){
+    mobileNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+});
+</script>
+</body>
+</html>
